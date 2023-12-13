@@ -1,11 +1,14 @@
-using MyCourses.Models.Entities;
-
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllersWithViews();
+
 var app = builder.Build();
 
 app.UseStaticFiles();
 
-Course c = new(1, "Test Course", "Simple test for project cross reference", "");
-app.MapGet("/", () => c.ToString());
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
 
 app.Run();
