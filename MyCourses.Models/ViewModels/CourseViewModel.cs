@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MyCourses.Models.ValueObjects;
 
 namespace MyCourses.Models.ViewModels
 {
@@ -12,7 +9,7 @@ namespace MyCourses.Models.ViewModels
         public string ImagePath { get; set; }
         public string Author { get; set; }
         public double Rating { get; set; }
-        public Decimal FullPrice { get; set; }
-        public Decimal CurrentPrice { get; set; }
+        public Money FullPrice { get; set; }
+        public Money CurrentPrice { get; set; }
     }
 }

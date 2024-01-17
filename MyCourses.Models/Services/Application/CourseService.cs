@@ -1,3 +1,4 @@
+using MyCourses.Models.ValueObjects;
 using MyCourses.Models.ViewModels;
 
 namespace MyCourses.Models.Services.Application
@@ -17,8 +18,8 @@ namespace MyCourses.Models.Services.Application
                     ImagePath = "/logo.svg",
                     Author = "Nome Cognome",
                     Rating = rand.Next(10, 50) / 10.0,
-                    FullPrice = rand.NextDouble() > 0.5 ? price : price + 1,
-                    CurrentPrice = price
+                    FullPrice = new Money(Enums.Currency.EUR, rand.NextDouble() > 0.5 ? price : price + 1),
+                    CurrentPrice = new Money(Enums.Currency.EUR, price)
                 };
                 courseList.Add(course);
             }
