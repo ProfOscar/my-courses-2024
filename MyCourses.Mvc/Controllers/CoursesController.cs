@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using MyCourses.Models.Entities;
 using MyCourses.Models.Services.Application;
 using MyCourses.Models.ViewModels;
 
@@ -10,15 +9,15 @@ namespace MyCourses.Mvc.Controllers
         public IActionResult Index()
         {
             CourseService courseService = new CourseService();
-            List<CourseViewModel> courses = courseService.GetCourses();
-            return View(courses);
+            List<CourseViewModel> model = courseService.GetCourses();
+            return View(model);
         }
 
-        public IActionResult Detail(string id)
+        public IActionResult Detail(int id)
         {
-            Course c = new Course(int.Parse(id), "Test Course " + id, "Description for course " + id, "");
-            // return Content($"Sono Detail di Courses: {c}");
-            return View();
+            CourseService courseService = new CourseService();
+            CourseDetailViewModel model = courseService.GetCourse(id);
+            return View(model);
         }
     }
 }
