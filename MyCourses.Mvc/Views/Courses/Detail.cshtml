@@ -1,1 +1,57 @@
-<h1>Sono la view per l'action Detail di CoursesController</h1>
+<section class="course-info">
+    <div class="row">
+        <div class="col-md-9">
+            <h1>Titolo del corso</h1>
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <a href="#" class="btn btn-warning btn-lg btn-block subscribe-course">Iscriviti</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis facere, delectus accusantium fugiat tempora rem ducimus quibusdam soluta vitae dignissimos cupiditate incidunt laudantium inventore porro quis unde sint nam. Libero.</p>
+            <p>Alias consequatur asperiores ducimus labore ea, accusamus, pariatur vel unde culpa quisquam placeat. Laudantium molestiae architecto aperiam vero culpa provident. Laborum atque totam quibusdam, ut voluptatibus rerum dolores non quo.</p>
+            <p>Quae nesciunt enim, laborum provident fuga quasi quas iure aspernatur nobis unde repellat, dolorem officiis at assumenda nostrum sed quo asperiores praesentium, aperiam expedita suscipit! Nihil ipsa debitis dolores soluta!</p>
+            <p>Incidunt saepe itaque, ut accusamus, ducimus possimus autem ex asperiores doloremque necessitatibus sequi quaerat eius excepturi quidem, dolores deserunt iusto dolorem amet corrupti blanditiis harum soluta. Cum voluptatem perferendis alias?</p>
+        </div>
+        <div class="col-md-3">
+            <aside>
+                <author>di Nome Cognome</author>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="price">EUR 10,99<br><s>EUR 11,99</s></div>
+                <img src="~/logo.svg" alt="Titolo del corso" class="img-fluid course-image">
+            </aside>
+        </div>
+    </div>
+</section>
+
+<section class="course-lessons">
+    <h2>Lezioni</h2>
+    @for (int i = 1; i <= 10; i++)
+    {
+        <hr>
+        <div class="row">
+            <div class="col-md-9 d-flex align-items-center">
+                <a href="#">Titolo della lezione @i</a>
+            </div>
+            <div class="col-md-3 d-flex align-items-center lesson-duration">
+                <i class="far fa-clock"></i><time>1m 30s</time>
+            </div>
+        </div>
+    }
+    <hr>
+    <div class="row course-duration">
+        <div class="col-md-9 d-flex align-items-center">
+            Totale
+        </div>
+        <div class="col-md-3 d-flex align-items-center">
+            <i class="far fa-clock"></i><time>15m 10s</time>
+        </div>
+    </div>
+</section>
