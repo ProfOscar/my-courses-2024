@@ -10,6 +10,7 @@ namespace MyCourses.Mvc.Controllers
         {
             CourseService courseService = new CourseService();
             List<CourseViewModel> model = courseService.GetCourses();
+            ViewBag.Title = "Catalogo dei corsi";
             return View(model);
         }
 
@@ -17,6 +18,7 @@ namespace MyCourses.Mvc.Controllers
         {
             CourseService courseService = new CourseService();
             CourseDetailViewModel model = courseService.GetCourse(id);
+            ViewBag.Title = model.Title;
             return View(model);
         }
     }

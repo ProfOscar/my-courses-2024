@@ -6,6 +6,7 @@ namespace MyCourses.Mvc.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Title = "MyCourses - Homepage";
             return View();
         }
     }
