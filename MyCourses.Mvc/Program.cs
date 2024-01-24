@@ -1,6 +1,11 @@
+using MyCourses.Models.Services.Application;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddTransient<ICourseService, CourseService>();
+
 builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 
