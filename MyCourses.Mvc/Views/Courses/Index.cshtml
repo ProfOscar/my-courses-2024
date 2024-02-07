@@ -30,7 +30,7 @@
         </div>
         <div class="col-md-2 price">
             @course.CurrentPrice
-            @if (!course.CurrentPrice.Equals(course.FullPrice)) 
+            @if (!course.CurrentPrice!.Equals(course.FullPrice)) 
             {
                 <br>
                 <s>@course.FullPrice</s>

@@ -34,7 +34,7 @@
                 </div>
                 <div class="price">
                     @Model.CurrentPrice<br>
-                    @if (!Model.CurrentPrice.Equals(Model.FullPrice))
+                    @if (!Model.CurrentPrice!.Equals(Model.FullPrice))
                     {
                         <br>
                         <s>@Model.FullPrice</s>
@@ -47,7 +47,7 @@
 </section>
 
 <section class="course-lessons">
-    <h2>Lezioni (@Model.Lessons.Count)</h2>
+    <h2>Lezioni (@Model.Lessons!.Count)</h2>
     @foreach (var lesson in Model.Lessons)
     {
         <hr>

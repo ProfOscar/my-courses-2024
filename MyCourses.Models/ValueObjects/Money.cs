@@ -36,7 +36,7 @@ namespace MyCourses.Models.ValueObjects
             get; set;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             var money = obj as Money;
             return money != null &&
