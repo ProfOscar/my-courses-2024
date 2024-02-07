@@ -4,7 +4,7 @@ using MyCourses.Models.ViewModels;
 
 namespace MyCourses.Models.Services.Application
 {
-    public class CourseService : ICourseService
+    public class DummyCourseService : ICourseService
     {
         public List<CourseViewModel> GetCourses()
         {

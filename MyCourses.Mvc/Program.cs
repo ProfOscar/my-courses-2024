@@ -2,7 +2,8 @@ using MyCourses.Models.Services.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddTransient<ICourseService, CourseService>();
+// builder.Services.AddTransient<ICourseService, DummyCourseService>();
+builder.Services.AddTransient<ICourseService, AdoNetCourseService>();
 
 builder.Services.AddControllersWithViews();
 
