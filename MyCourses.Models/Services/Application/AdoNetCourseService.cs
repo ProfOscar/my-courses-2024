@@ -1,4 +1,5 @@
 using System.Data;
+using System.Net.Http.Headers;
 using MyCourses.Models.Services.Infrastructure;
 using MyCourses.Models.ViewModels;
 
@@ -28,7 +29,21 @@ namespace MyCourses.Models.Services.Application
 
         public CourseDetailViewModel GetCourse(int id)
         {
-            throw new NotImplementedException();
+            string sql = "SELECT Id, Title, Description, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM Courses WHERE Id=" + id +
+                            "; SELECT Id, Title, Description, Duration FROM Lessons WHERE CourseId=" + id;
+            DataSet dataSet = db.Query(sql);
+
+            // course
+            var courseTable = dataSet.Tables[0];
+            if (courseTable.Rows.Count != 1)
+                throw new InvalidOperationException($"La query dovrebbe restituire esattamente una riga per il corso {id}");
+            var courseRow = courseTable.Rows[0];
+            var courseDetailViewModel = CourseDetailViewModel.FromDataRow(courseRow);
+
+            // lessons
+            var lessonsTable = dataSet.Tables[1];
+
+            return courseDetailViewModel;
         }
     }
 }
