@@ -1,5 +1,4 @@
 using System.Data;
-using System.Net.Http.Headers;
 using MyCourses.Models.Services.Infrastructure;
 using MyCourses.Models.ViewModels;
 
@@ -15,7 +14,7 @@ namespace MyCourses.Models.Services.Application
 
         public List<CourseViewModel> GetCourses()
         {
-            string sql = "SELECT Id, Title, ImagePath, Author, Rating, FullPrice_Currency, FullPrice_Amount, CurrentPrice_Currency, CurrentPrice_Amount FROM Courses";
+            FormattableString sql = $"SELECT Id, Title, ImagePath, Author, Rating, FullPrice_Currency, FullPrice_Amount, CurrentPrice_Currency, CurrentPrice_Amount FROM Courses";
             DataSet dataSet = db.Query(sql);
             DataTable dataTable = dataSet.Tables[0];
             var courseList = new List<CourseViewModel>();
@@ -29,8 +28,8 @@ namespace MyCourses.Models.Services.Application
 
         public CourseDetailViewModel GetCourse(int id)
         {
-            string sql = "SELECT Id, Title, Description, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM Courses WHERE Id=" + id +
-                            "; SELECT Id, Title, Description, Duration FROM Lessons WHERE CourseId=" + id;
+            FormattableString sql = $@"SELECT Id, Title, Description, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM Courses WHERE Id={id};
+                SELECT Id, Title, Description, Duration FROM Lessons WHERE CourseId={id}";
             DataSet dataSet = db.Query(sql);
 
             // course
