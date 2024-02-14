@@ -42,6 +42,11 @@ namespace MyCourses.Models.Services.Application
 
             // lessons
             var lessonsTable = dataSet.Tables[1];
+            foreach (DataRow lessonRow in lessonsTable.Rows)
+            {
+                LessonViewModel lesson = LessonViewModel.FromDataRow(lessonRow);
+                courseDetailViewModel.Lessons!.Add(lesson);
+            }
 
             return courseDetailViewModel;
         }
