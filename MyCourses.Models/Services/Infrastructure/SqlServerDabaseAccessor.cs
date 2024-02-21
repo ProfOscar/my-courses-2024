@@ -1,10 +1,18 @@
 using System.Data;
 using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace MyCourses.Models.Services.Infrastructure
 {
     public class SqlServerDabaseAccessor : IDatabaseAccessor
     {
+        private readonly IConfiguration Configuration;
+
+        public SqlServerDabaseAccessor(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         public async Task<DataSet> QueryAsync(FormattableString formattableQuery)
         {
             var queryArguments = formattableQuery.GetArguments();
@@ -17,7 +25,9 @@ namespace MyCourses.Models.Services.Infrastructure
             }
             string sql = formattableQuery.ToString();
 
-            string connStr = "Server=127.0.0.1,1433; Database=MyCourses.DB; User ID=sa; Password=My1Courses!;";
+            // string connStr = "Server=127.0.0.1,1433; Database=MyCourses.DB; User ID=sa; Password=My1Courses!;";
+            // string connStr = Configuration.GetConnectionString("MyCourse")!;
+            string connStr = Configuration["ConnectionStrings:MyCourse"]!;
             using (var conn = new SqlConnection(connStr))
             {
                 await conn.OpenAsync();
