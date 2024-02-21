@@ -25,9 +25,8 @@ namespace MyCourses.Models.Services.Infrastructure
             }
             string sql = formattableQuery.ToString();
 
-            // string connStr = "Server=127.0.0.1,1433; Database=MyCourses.DB; User ID=sa; Password=My1Courses!;";
-            // string connStr = Configuration.GetConnectionString("MyCourse")!;
-            string connStr = Configuration["ConnectionStrings:MyCourse"]!;
+            // string connStr = Configuration.GetConnectionString("Default")!;
+            string connStr = Configuration["ConnectionStrings:Default"]!;
             using (var conn = new SqlConnection(connStr))
             {
                 await conn.OpenAsync();
