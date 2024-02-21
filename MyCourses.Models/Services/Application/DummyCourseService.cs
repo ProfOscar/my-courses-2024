@@ -6,7 +6,7 @@ namespace MyCourses.Models.Services.Application
 {
     public class DummyCourseService : ICourseService
     {
-        public List<CourseViewModel> GetCourses()
+        public async Task<List<CourseViewModel>> GetCoursesAsync()
         {
             var courseList = new List<CourseViewModel>();
             var rand = new Random();
@@ -28,7 +28,7 @@ namespace MyCourses.Models.Services.Application
             return courseList;
         }
 
-        public CourseDetailViewModel GetCourse(int id)
+        public async Task<CourseDetailViewModel> GetCourseAsync(int id)
         {
             var rnd = new Random();
             var price = Convert.ToDecimal(rnd.NextDouble() * 10 + 10);

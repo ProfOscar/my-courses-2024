@@ -12,10 +12,10 @@ namespace MyCourses.Models.Services.Application
             this.db = db;
         }
 
-        public List<CourseViewModel> GetCourses()
+        public async Task<List<CourseViewModel>> GetCoursesAsync()
         {
             FormattableString sql = $"SELECT Id, Title, ImagePath, Author, Rating, FullPrice_Currency, FullPrice_Amount, CurrentPrice_Currency, CurrentPrice_Amount FROM Courses";
-            DataSet dataSet = db.Query(sql);
+            DataSet dataSet = await db.QueryAsync(sql);
             DataTable dataTable = dataSet.Tables[0];
             var courseList = new List<CourseViewModel>();
             foreach (DataRow courseRow in dataTable.Rows)
@@ -26,11 +26,11 @@ namespace MyCourses.Models.Services.Application
             return courseList;
         }
 
-        public CourseDetailViewModel GetCourse(int id)
+        public async Task<CourseDetailViewModel> GetCourseAsync(int id)
         {
             FormattableString sql = $@"SELECT Id, Title, Description, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM Courses WHERE Id={id};
                 SELECT Id, Title, Description, Duration FROM Lessons WHERE CourseId={id}";
-            DataSet dataSet = db.Query(sql);
+            DataSet dataSet = await db.QueryAsync(sql);
 
             // course
             var courseTable = dataSet.Tables[0];
