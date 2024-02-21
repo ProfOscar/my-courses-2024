@@ -4,6 +4,7 @@ using MyCourses.Models.ViewModels;
 
 namespace MyCourses.Models.Services.Application
 {
+    #pragma warning disable
     public class DummyCourseService : ICourseService
     {
         public async Task<List<CourseViewModel>> GetCoursesAsync()
