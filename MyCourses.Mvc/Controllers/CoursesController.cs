@@ -8,7 +8,7 @@ namespace MyCourses.Mvc.Controllers
     {
         private ICourseService courseService;
 
-        public CoursesController(ICourseService courseService)
+        public CoursesController(ICachedCourseService courseService)
         {
             this.courseService = courseService;
         }
