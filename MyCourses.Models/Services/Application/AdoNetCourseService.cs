@@ -1,4 +1,5 @@
 using System.Data;
+using Microsoft.Extensions.Logging;
 using MyCourses.Models.Services.Infrastructure;
 using MyCourses.Models.ViewModels;
 
@@ -6,14 +7,17 @@ namespace MyCourses.Models.Services.Application
 {
     public class AdoNetCourseService : ICourseService
     {
+        private readonly ILogger<AdoNetCourseService> logger;
         private readonly IDatabaseAccessor db;
-        public AdoNetCourseService(IDatabaseAccessor db)
+        public AdoNetCourseService(ILogger<AdoNetCourseService> logger, IDatabaseAccessor db)
         {
+            this.logger = logger;
             this.db = db;
         }
 
         public async Task<List<CourseViewModel>> GetCoursesAsync()
         {
+            logger.LogInformation("Courses list requested");
             FormattableString sql = $"SELECT Id, Title, ImagePath, Author, Rating, FullPrice_Currency, FullPrice_Amount, CurrentPrice_Currency, CurrentPrice_Amount FROM Courses";
             DataSet dataSet = await db.QueryAsync(sql);
             DataTable dataTable = dataSet.Tables[0];
@@ -28,6 +32,7 @@ namespace MyCourses.Models.Services.Application
 
         public async Task<CourseDetailViewModel> GetCourseAsync(int id)
         {
+            logger.LogInformation("Course {id} requested", id);
             FormattableString sql = $@"SELECT Id, Title, Description, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM Courses WHERE Id={id};
                 SELECT Id, Title, Description, Duration FROM Lessons WHERE CourseId={id}";
             DataSet dataSet = await db.QueryAsync(sql);

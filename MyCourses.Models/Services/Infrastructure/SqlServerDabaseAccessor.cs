@@ -1,21 +1,25 @@
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace MyCourses.Models.Services.Infrastructure
 {
     public class SqlServerDabaseAccessor : IDatabaseAccessor
     {
-        private readonly IConfiguration Configuration;
+        private readonly IConfiguration configuration;
+        private readonly ILogger<SqlServerDabaseAccessor> logger;
 
-        public SqlServerDabaseAccessor(IConfiguration configuration)
+        public SqlServerDabaseAccessor(IConfiguration configuration, ILogger<SqlServerDabaseAccessor> logger)
         {
-            Configuration = configuration;
+            this.configuration = configuration;
+            this.logger = logger;
         }
 
         public async Task<DataSet> QueryAsync(FormattableString formattableQuery)
         {
             var queryArguments = formattableQuery.GetArguments();
+            logger.LogInformation(formattableQuery.Format, queryArguments);
             var sqlParameters = new List<SqlParameter>();
             for (int i = 0; i < queryArguments.Length; i++)
             {
@@ -26,7 +30,7 @@ namespace MyCourses.Models.Services.Infrastructure
             string sql = formattableQuery.ToString();
 
             // string connStr = Configuration.GetConnectionString("Default")!;
-            string connStr = Configuration["ConnectionStrings:Default"]!;
+            string connStr = configuration["ConnectionStrings:Default"]!;
             using (var conn = new SqlConnection(connStr))
             {
                 await conn.OpenAsync();
