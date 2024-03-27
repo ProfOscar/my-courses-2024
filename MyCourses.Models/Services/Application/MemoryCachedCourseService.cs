@@ -14,17 +14,23 @@ namespace MyCourses.Models.Services.Application
         private readonly IMemoryCache memoryCache;
         private readonly ICourseService courseService;
 
+        public MemoryCache Cache { get; }
+
         public MemoryCachedCourseService(IConfiguration configuration, IMemoryCache memoryCache, ICourseService courseService)
         {
             this.configuration = configuration;
             this.memoryCache = memoryCache;
             this.courseService = courseService;
+            Cache = new MemoryCache(new MemoryCacheOptions { SizeLimit = getMemoryCacheSizeLimit() });
         }
+
+
 
         public Task<CourseDetailViewModel> GetCourseAsync(int id)
         {
             return memoryCache.GetOrCreateAsync($"Course{id}", cacheEntry =>
             {
+                cacheEntry.SetSize(1);
                 cacheEntry.SetAbsoluteExpiration(getExpirationTimeSpan());
                 return courseService.GetCourseAsync(id);
             })!;
@@ -34,6 +40,7 @@ namespace MyCourses.Models.Services.Application
         {
             return memoryCache.GetOrCreateAsync("Courses", cacheEntry =>
             {
+                cacheEntry.SetSize(2);
                 cacheEntry.SetAbsoluteExpiration(getExpirationTimeSpan());
                 return courseService.GetCoursesAsync();
             })!;
@@ -42,6 +49,11 @@ namespace MyCourses.Models.Services.Application
         private TimeSpan getExpirationTimeSpan()
         {
             return TimeSpan.FromSeconds(int.Parse(configuration["CacheExpiration"]!));
+        }
+
+        private int getMemoryCacheSizeLimit()
+        {
+            return int.Parse(configuration["CacheSizeLimit"]!);
         }
     }
 }
