@@ -4,10 +4,10 @@ using MyCourses.Models.ViewModels;
 
 namespace MyCourses.Models.Services.Application
 {
-    #pragma warning disable
+#pragma warning disable
     public class DummyCourseService : ICourseService
     {
-        public async Task<List<CourseViewModel>> GetCoursesAsync()
+        public async Task<List<CourseViewModel>> GetCoursesAsync(string search = null)
         {
             var courseList = new List<CourseViewModel>();
             var rand = new Random();

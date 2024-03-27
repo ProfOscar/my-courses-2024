@@ -13,9 +13,9 @@ namespace MyCourses.Mvc.Controllers
             this.courseService = courseService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search = null!)
         {
-            List<CourseViewModel> model = await courseService.GetCoursesAsync();
+            List<CourseViewModel> model = await courseService.GetCoursesAsync(search);
             ViewBag.Title = "Catalogo dei corsi";
             return View(model);
         }
